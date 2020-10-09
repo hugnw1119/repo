@@ -30,6 +30,9 @@ module.exports.routes = {
 'POST /person/delete/:id': 'PersonController.delete',
 'GET /person/update/:id': 'PersonController.update',
 'POST /person/update/:id': 'PersonController.update',
+'GET /person/search': 'PersonController.search',
+'GET /person/paginate': 'PersonController.paginate',
+
 
   /***************************************************************************
   *                                                                          *

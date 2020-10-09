@@ -26,5 +26,13 @@ module.exports.bootstrap = async function() {
   //   // etc.
   // ]);
   // ```
+  if (await Person.count() > 0) {
+      return;
+  }
 
+  await Person.createEach([
+      { name: "Martin Choy", age: 23 },
+      { name: "Kenny Cheng", age: 22 }
+      // etc.
+  ]);
 };

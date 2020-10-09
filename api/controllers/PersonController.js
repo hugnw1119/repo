@@ -68,6 +68,41 @@ module.exports = {
             return res.ok();
         }
     },
+      // search function
+    search: async function (req, res) {
+        
+        var whereClause = {};
+                                          
+        if (req.query.name) whereClause.name = { contains: req.query.name };
+        
+        var parsedAge = parseInt(req.query.age);
+        if (!isNaN(parsedAge)) whereClause.age = parsedAge;
+        
+        var thosePersons = await Person.find({
+            where: whereClause,
+            sort: 'name'
+        });
+        
+        return res.view('person/list', { persons: thosePersons });
+    },
 
+    // action - paginate
+    paginate: async function (req, res) {
+
+        var limit = Math.max(req.query.limit, 2) || 2;
+        var offset = Math.max(req.query.offset, 0) || 0;
+
+        var somePersons = await Person.find({
+            limit: limit,
+            skip: offset
+        });
+
+        var count = await Person.count();
+
+        return res.view('person/paginate', { persons: somePersons, numOfRecords: count });
+    },
+
+
+    
 };
 
